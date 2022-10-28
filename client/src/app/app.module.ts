@@ -22,6 +22,9 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { MemberCardComponent } from './member/member-card/member-card.component';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './member/member-edit/member-edit.component';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -37,7 +40,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
@@ -50,10 +54,12 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
       positionClass:'toast-bottom-right'
     }),
     TabsModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgxSpinnerModule
   ],
   providers: [
-   { provide: HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true}
+   { provide: HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
+   { provide: HTTP_INTERCEPTORS,useClass:LoadingInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]
 })
